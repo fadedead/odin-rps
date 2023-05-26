@@ -55,35 +55,143 @@ function playRound(playerSelection, computerSelection) {
   return win
 }
 
-function game() {
-  let round = 1
-  let computer = 0
-  let player = 0
-  while(round <= 5){
-    let playerChoice = prompt("Pick your choice [rock, paper, scissors]")
-    let currWinner = playRound(playerChoice, getComputerChoice())
-    if(currWinner == 0){
-      computer += 1
-    }
-    if(currWinner == 1){
-      player += 1
-    }
-    if(currWinner == -1){
-      player += 1
-      computer += 1
-    }
-    round += 1
+// function game() {
+//   let round = 1
+//   let computer = 0
+//   let player = 0
+ 
+//     // let playerChoice = prompt("Pick your choice [rock, paper, scissors]")
+//     let currWinner = playRound(playerChoice, getComputerChoice())
+//     if(currWinner == 0){
+//       computer += 1
+//     }
+//     if(currWinner == 1){
+//       player += 1
+//     }
+//     if(currWinner == -1){
+//       player += 1
+//       computer += 1
+//     }
+//     round += 1
+
+
+//   if(player > computer){
+//     console.log(`You Win! with score: ${player}`)
+//   }
+//   else if(player < computer){
+//     console.log(`You Lose! with score: ${player}`)
+//   }
+//   else{
+//     console.log(`It's a Tie! with score: ${player}`)
+//   }
+// }
+
+
+function createButtons(){
+  const playArea = document.createElement("div");
+
+  const playStyles = {
+    display : "flex",
+    height : "200px",
+    width : "400px",
+    background : "lightgrey",
+  };
+  Object.assign(playArea.style, playStyles);
+
+  const div = document.createElement("div")
+  const rock = document.createElement("button");
+  const paper = document.createElement("button");
+  const scissors = document.createElement("button");
+
+  rock.innerText = "Play Rock";
+  paper.innerText = "Play Paper";
+  scissors.innerText = "Play Scissors";
+
+  const divRock = document.createElement("div");
+  const divPaper = document.createElement("div");
+  const divScissor = document.createElement("div");
+
+  const btns = [rock, paper, scissors]
+  const divEle = [divRock, divPaper, divScissor]
+  
+  for (let i = 0; i < btns.length; i++){
+    divEle[i].appendChild(btns[i]);
+  }
+  
+  for (let val of divEle){
+    div.appendChild(val);
   }
 
-  if(player > computer){
-    console.log(`You Win! with score: ${player}`)
+  const btnStyles = {
+    display : 'flex',
+    color : 'grey',
+    margin : '12px',
+    padding : '12px',
+    paddingLeft : '48px',
+    gap : '12px',
+ };
+ 
+  Object.assign(div.style, btnStyles);
+  
+  document.body.appendChild(playArea);
+
+  document.body.appendChild(div);
+
+  return btns;
+}
+
+function playRock() {
+  const winner = playRound('rock', getComputerChoice());
+  if(winner == 0){
+    document.playArea.innerText("Computer Wins");
+    alert("Computer Wins");
   }
-  else if(player < computer){
-    console.log(`You Lose! with score: ${player}`)
+  if(winner == 1){
+    document.playArea.innerText("Player Wins");
+    alert("Player Wins");
   }
-  else{
-    console.log(`It's a Tie! with score: ${player}`)
+  if(winner == -1){
+    document.playArea.innerText("It was a Tie");
+    alert("It was a Tie");
   }
 }
 
-game()
+function playPaper() {
+  const winner = playRound('paper', getComputerChoice());
+  if(winner == 0){
+    alert("Computer Wins");
+  }
+  if(winner == 1){
+    alert("Player Wins");
+  }
+  if(winner == -1){
+    alert("It was a Tie");
+  }
+}
+
+function playScissors() {
+  const winner = playRound('scissors', getComputerChoice());
+  if(winner == 0){
+    alert("Computer Wins");
+  }
+  if(winner == 1){
+    alert("Player Wins");
+  }
+  if(winner == -1){
+    alert("It was a Tie");
+  }
+}
+
+function evenHandling(rock, paper, scissors) {
+  rock.onclick = playRock;
+  paper.onclick = playPaper;
+  scissors.onclick = playScissors;
+}
+
+
+function main(){
+  let btns = createButtons();
+  evenHandling(btns[0], btns[1], btns[2]);
+}
+
+main();
