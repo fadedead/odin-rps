@@ -1,65 +1,65 @@
 function getComputerChoice() {
-  let options = ["rock", "paper", "scissors"]
-  let choice = Math.floor(Math.random()*3)
-  return options[choice]
+  let options = ["rock", "paper", "scissors"];
+  let choice = Math.floor(Math.random() * 3);
+  return options[choice];
 }
 
 function playRound(playerSelection, computerSelection) {
-  playerSelection = playerSelection.toLowerCase()
+  playerSelection = playerSelection.toLowerCase();
   let win = -1;
-  if(playerSelection === "rock"){
-    if(computerSelection === "rock"){
-      console.log("It's a tie, both pick Rock")
-      win = -1
+  if (playerSelection === "rock") {
+    if (computerSelection === "rock") {
+      console.log("It's a tie, both pick Rock");
+      win = -1;
     }
-    if(computerSelection === "paper"){
-      console.log("You Lose! Paper beats Rock")
-      win = 0
+    if (computerSelection === "paper") {
+      console.log("You Lose! Paper beats Rock");
+      win = 0;
     }
-    if(computerSelection === "scissors"){
-      console.log("You Win! Rock beats Scissors")
-      win = 1
-    }
-  }
-
-  if(playerSelection === "paper"){
-    if(computerSelection === "rock"){
-      console.log("You Win! Paper beats Rock")
-      win = 1
-    }
-    if(computerSelection === "paper"){
-      console.log("It's a tie, both pick Paper")
-      win = -1
-    }
-    if(computerSelection === "scissors"){
-      console.log("You Lose! Scissors beats Paper")
-      win = 0
+    if (computerSelection === "scissors") {
+      console.log("You Win! Rock beats Scissors");
+      win = 1;
     }
   }
 
- if(playerSelection === "scissors"){
-    if(computerSelection === "rock"){
-      console.log("You Lose! Rock beats Scissors")
-      win = 0
+  if (playerSelection === "paper") {
+    if (computerSelection === "rock") {
+      console.log("You Win! Paper beats Rock");
+      win = 1;
     }
-    if(computerSelection === "paper"){
-      console.log("You Win! Scissors beats Paper")
-      win = 1
+    if (computerSelection === "paper") {
+      console.log("It's a tie, both pick Paper");
+      win = -1;
     }
-    if(computerSelection === "scissors"){
-      console.log("It's a tie, both pick Scissors")
-      win = -1
+    if (computerSelection === "scissors") {
+      console.log("You Lose! Scissors beats Paper");
+      win = 0;
     }
   }
 
-  return win
+  if (playerSelection === "scissors") {
+    if (computerSelection === "rock") {
+      console.log("You Lose! Rock beats Scissors");
+      win = 0;
+    }
+    if (computerSelection === "paper") {
+      console.log("You Win! Scissors beats Paper");
+      win = 1;
+    }
+    if (computerSelection === "scissors") {
+      console.log("It's a tie, both pick Scissors");
+      win = -1;
+    }
+  }
+
+  return win;
 }
 
 // function game() {
 //   let round = 1
 //   let computer = 0
 //   let player = 0
- 
+
 //     // let playerChoice = prompt("Pick your choice [rock, paper, scissors]")
 //     let currWinner = playRound(playerChoice, getComputerChoice())
 //     if(currWinner == 0){
@@ -74,7 +74,6 @@ function playRound(playerSelection, computerSelection) {
 //     }
 //     round += 1
 
-
 //   if(player > computer){
 //     console.log(`You Win! with score: ${player}`)
 //   }
@@ -86,19 +85,18 @@ function playRound(playerSelection, computerSelection) {
 //   }
 // }
 
-
-function createButtons(){
+function createButtons() {
   const playArea = document.createElement("div");
 
   const playStyles = {
-    display : "flex",
-    height : "200px",
-    width : "400px",
-    background : "lightgrey",
+    display: "flex",
+    height: "200px",
+    width: "400px",
+    background: "lightgrey",
   };
   Object.assign(playArea.style, playStyles);
 
-  const div = document.createElement("div")
+  const div = document.createElement("div");
   const rock = document.createElement("button");
   const paper = document.createElement("button");
   const scissors = document.createElement("button");
@@ -111,87 +109,96 @@ function createButtons(){
   const divPaper = document.createElement("div");
   const divScissor = document.createElement("div");
 
-  const btns = [rock, paper, scissors]
-  const divEle = [divRock, divPaper, divScissor]
-  
-  for (let i = 0; i < btns.length; i++){
+  const btns = [rock, paper, scissors];
+  const divEle = [divRock, divPaper, divScissor];
+
+  for (let i = 0; i < btns.length; i++) {
     divEle[i].appendChild(btns[i]);
   }
-  
-  for (let val of divEle){
+
+  for (let val of divEle) {
     div.appendChild(val);
   }
 
   const btnStyles = {
-    display : 'flex',
-    color : 'grey',
-    margin : '12px',
-    padding : '12px',
-    paddingLeft : '48px',
-    gap : '12px',
- };
- 
+    display: "flex",
+    color: "grey",
+    margin: "12px",
+    padding: "12px",
+    paddingLeft: "48px",
+    gap: "12px",
+  };
+
   Object.assign(div.style, btnStyles);
-  
+
   document.body.appendChild(playArea);
 
   document.body.appendChild(div);
 
-  return btns;
-}
+  let rounds = document.createElement('div');
 
-function playRock() {
-  const winner = playRound('rock', getComputerChoice());
-  if(winner == 0){
-    document.playArea.innerText("Computer Wins");
-    alert("Computer Wins");
+  const roundStyle = {
+    display : "flex",
+    flexDirection : "column",
+    fontSize : "12px",
+    margin : '0px',
   }
-  if(winner == 1){
-    document.playArea.innerText("Player Wins");
-    alert("Player Wins");
-  }
-  if(winner == -1){
-    document.playArea.innerText("It was a Tie");
-    alert("It was a Tie");
-  }
-}
 
-function playPaper() {
-  const winner = playRound('paper', getComputerChoice());
-  if(winner == 0){
-    alert("Computer Wins");
+  playArea.appendChild(rounds);
+  Object.assign(rounds.style, roundStyle);
+  
+  function playRock() {
+    const winner = playRound("rock", getComputerChoice());
+    let currWinner;
+    if (winner == 0) {
+      currWinner = "Computer Wins";
+    }
+    if (winner == 1) {
+      currWinner = "Player Wins";
+    }
+    if (winner == -1) {
+      currWinner = "It was a Tie";
+    }
+    let paraTag = document.createElement('p');
+    let currText = document.createTextNode(currWinner);
+    paraTag.style.margin = '0px';
+    rounds.appendChild(paraTag);
+    paraTag.appendChild(currText);
   }
-  if(winner == 1){
-    alert("Player Wins");
-  }
-  if(winner == -1){
-    alert("It was a Tie");
-  }
-}
 
-function playScissors() {
-  const winner = playRound('scissors', getComputerChoice());
-  if(winner == 0){
-    alert("Computer Wins");
+  function playPaper() {
+    const winner = playRound("paper", getComputerChoice());
+    if (winner == 0) {
+      alert("Computer Wins");
+    }
+    if (winner == 1) {
+      alert("Player Wins");
+    }
+    if (winner == -1) {
+      alert("It was a Tie");
+    }
   }
-  if(winner == 1){
-    alert("Player Wins");
-  }
-  if(winner == -1){
-    alert("It was a Tie");
-  }
-}
 
-function evenHandling(rock, paper, scissors) {
+  function playScissors() {
+    const winner = playRound("scissors", getComputerChoice());
+    if (winner == 0) {
+      alert("Computer Wins");
+    }
+    if (winner == 1) {
+      alert("Player Wins");
+    }
+    if (winner == -1) {
+      alert("It was a Tie");
+    }
+  }
+
   rock.onclick = playRock;
   paper.onclick = playPaper;
   scissors.onclick = playScissors;
 }
-
-
-function main(){
-  let btns = createButtons();
-  evenHandling(btns[0], btns[1], btns[2]);
+function main() {
+  createButtons();
+  // evenHandling(btns[0], btns[1], btns[2]);
 }
 
 main();
