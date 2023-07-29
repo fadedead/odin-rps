@@ -178,6 +178,9 @@ function createButtons() {
     paper.onclick = playPaper;
     scissors.onclick = playScissors;
     let child = rounds.lastElementChild;
+    roundCount = 0;
+    currPlayerScore = 0;
+    currComputerScore = 0;
     while(child){
       rounds.removeChild(child);
       child = rounds.lastElementChild;
